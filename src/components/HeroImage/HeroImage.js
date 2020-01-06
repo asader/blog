@@ -50,7 +50,7 @@ const Title = styled.h1`
   color: white;
 `
 
-const Hero = props => (
+export const HeroImage = props => (
   <Wrapper>
     <BgImg
       height={props.height}
@@ -61,4 +61,4 @@ const Hero = props => (
   </Wrapper>
 )
 
-export default Hero
+export default HeroImage

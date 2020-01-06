@@ -10,10 +10,10 @@ const List = styled.ul`
     content: '';
     flex: 0 0 32%;
   }
-`
+`;
 
-const CardList = props => {
+export const CardList = props => {
   return <List>{props.children}</List>
-}
+};
 
 export default CardList

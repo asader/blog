@@ -1,11 +1,11 @@
 // Setup modified from https://github.com/contentful-userland/gatsby-contentful-starter
 
-const spaceImport = require('contentful-import')
-const exportFile = require('../contentful/export.json')
-const inquirer = require('inquirer')
-const chalk = require('chalk')
-const path = require('path')
-const { writeFileSync } = require('fs')
+const spaceImport = require('contentful-import');
+const exportFile = require('../contentful/export.json');
+const inquirer = require('inquirer');
+const chalk = require('chalk');
+const path = require('path');
+const { writeFileSync } = require('fs');
 
 console.log(`
   To set up this project you need to provide your Space ID
@@ -29,7 +29,7 @@ console.log(`
     will be used to import and write data to your space.
 
   Ready? Let's do it! 🎉
-`)
+`);
 
 const questions = [
   {
@@ -51,7 +51,7 @@ const questions = [
     name: 'managementToken',
     message: 'Your Content Management API access token',
   },
-]
+];
 
 inquirer
   .prompt(questions)
@@ -75,7 +75,7 @@ inquirer
         null,
         2
       )
-    )
+    );
     console.log(`Config file ${chalk.yellow(configFilePath)} written`)
 
     return { spaceId, managementToken }

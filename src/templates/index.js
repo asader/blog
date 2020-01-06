@@ -1,12 +1,10 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-import Layout from '../components/Layout'
-import CardList from '../components/CardList'
-import Card from '../components/Card'
-import { ProductCard } from '../components/ProductCard'
+import { Layout } from '../components/Layout';
+import { BlogCard, CardList, ProductCard } from '../components/Card'
 import Helmet from 'react-helmet'
-import Container from '../components/Container'
-import SEO from '../components/SEO'
+import { Container } from '../components/Container';
+import { SEO } from '../components/SEO'
 import config from '../utils/siteConfig'
 
 const Index = ({ data, pageContext }) => {
@@ -27,9 +25,9 @@ const Index = ({ data, pageContext }) => {
       )}
       <Container>
         <CardList>
-          <Card {...featuredPost} pathPrefix={'/blog'} featured />
+          <BlogCard {...featuredPost} pathPrefix={'/blog'} featured />
           {posts.slice(1).map(({ node: post }) => (
-            <Card key={post.id} pathPrefix={'/blog'} {...post} />
+            <BlogCard key={post.id} pathPrefix={'/blog'} {...post} />
           ))}
         </CardList>
 

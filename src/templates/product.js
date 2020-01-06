@@ -2,12 +2,12 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import Helmet from 'react-helmet'
 import config from '../utils/siteConfig'
-import Layout from '../components/Layout'
-import Hero from '../components/Hero'
-import Container from '../components/Container'
-import PageBody from '../components/PageBody'
-import TagList from '../components/TagList'
-import SEO from '../components/SEO'
+import { Layout } from '../components/Layout';
+import { HeroImage } from '../components/HeroImage'
+import { Container } from '../components/Container';
+import { PageBody } from '../components/Page';
+import { TagList } from '../components/TagList';
+import { SEO } from '../components/SEO'
 
 const ProductTemplate = ({ data }) => {
   const {
@@ -26,7 +26,7 @@ const ProductTemplate = ({ data }) => {
       </Helmet>
       <SEO pagePath={slug} entityNode={productNode} postSEO />
 
-      <Hero title={title} image={image} height={'50vh'} />
+      <HeroImage title={title} image={image} height={'50vh'} />
 
       <Container>
         {tags && <TagList tags={tags} />}

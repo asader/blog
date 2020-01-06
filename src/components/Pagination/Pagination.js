@@ -43,9 +43,9 @@ const PageIndicator = styled.span`
   padding: 1em 1.5em;
   z-index: -1;
   opacity: 0.7;
-`
+`;
 
-class Pagination extends React.Component {
+export class Pagination extends React.Component {
   render() {
     const { numPages, currentPage, slug } = this.props.context
     const isFirst = currentPage === 1
@@ -74,5 +74,3 @@ class Pagination extends React.Component {
     )
   }
 }
-
-export default Pagination

@@ -7,17 +7,17 @@ const Wrapper = styled.div`
   span {
     margin: 0 0.5rem;
   }
-`
+`;
 
 const Date = styled.p`
   display: inline-block;
-`
+`;
 
 const ReadingTime = styled.p`
   display: inline-block;
-`
+`;
 
-const PostDetails = props => {
+export const PostDetails = props => {
   return (
     <Wrapper>
       <Date>📅 {props.date}</Date>
@@ -25,6 +25,5 @@ const PostDetails = props => {
       <ReadingTime>{`⏱️${props.timeToRead} min read `}</ReadingTime>
     </Wrapper>
   )
-}
+};
 
-export default PostDetails

@@ -27,7 +27,7 @@ const Tag = styled.li`
   }
 `
 
-const TagList = props => {
+export const TagList = props => {
   return (
     <List>
       {props.tags.map(tag => (
@@ -38,5 +38,3 @@ const TagList = props => {
     </List>
   )
 }
-
-export default TagList

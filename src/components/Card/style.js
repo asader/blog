@@ -1,9 +1,6 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Link } from 'gatsby'
-import Img from 'gatsby-image'
+import styled from 'styled-components';
 
-const Product = styled.li`
+export const Card = styled.li`
   position: relative;
   border: 1px solid ${props => props.theme.colors.secondary};
   border-radius: 2px;
@@ -37,35 +34,24 @@ const Product = styled.li`
   }
 `;
 
-const Title = styled.h2`
+export const Title = styled.h2`
   font-size: 1.5em;
   font-weight: 600;
   text-transform: capitalize;
   margin: 1rem 1rem 0.5rem 1rem;
 `;
 
-const Excerpt = styled.p`
+export const Date = styled.h3`
+  margin: 0 1rem 0.5rem 1rem;
+  color: gray;
+`;
+
+export const ReadingTime = styled.h4`
+  margin: 0 1rem 1.5rem 1rem;
+  color: gray;
+`;
+
+export const Excerpt = styled.p`
   margin: 0 1rem 1rem 1rem;
   line-height: 1.6;
 `;
-
-export const ProductCard = ({
-  slug,
-  image,
-  title,
-  body,
-  body: {
-    childMarkdownRemark: { timeToRead },
-  },
-  ...props
-}) => {
-  return (
-    <Product featured={props.featured}>
-      <Link to={`/${slug}`}>
-        <Img fluid={image.fluid} backgroundColor={'#eeeeee'} />
-        <Title>{title}</Title>
-        <Excerpt dangerouslySetInnerHTML={{ __html: body.childMarkdownRemark.excerpt }}/>
-      </Link>
-    </Product>
-  )
-};

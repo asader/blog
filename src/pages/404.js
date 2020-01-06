@@ -2,9 +2,9 @@ import React from 'react'
 import { Link } from 'gatsby'
 import styled from 'styled-components'
 import Helmet from 'react-helmet'
-import PageTitle from '../components/PageTitle'
-import Container from '../components/Container'
-import Layout from '../components/Layout'
+import { PageTitle } from '../components/Page';
+import { Container } from '../components/Container';
+import { Layout } from '../components/Layout';
 
 const Text = styled.p`
   text-align: center;

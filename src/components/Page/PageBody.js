@@ -95,14 +95,12 @@ const Body = styled.div`
       background: inherit !important;
     }
   }
-`
+`;
 
-const PageBody = props => {
+export const PageBody = props => {
   return (
     <Body
       dangerouslySetInnerHTML={{ __html: props.body.childMarkdownRemark.html }}
     />
   )
-}
-
-export default PageBody
+};

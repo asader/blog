@@ -4,12 +4,11 @@ import orderBy from 'lodash/orderBy'
 import Helmet from 'react-helmet'
 import moment from 'moment'
 import config from '../utils/siteConfig'
-import Layout from '../components/Layout'
-import Card from '../components/Card'
-import CardList from '../components/CardList'
-import PageTitle from '../components/PageTitle'
+import { Layout } from '../components/Layout';
+import { CardList, BlogCard } from '../components/Card'
+import { PageTitle } from '../components/Page';
 import Pagination from '../components/Pagination'
-import Container from '../components/Container'
+import { Container } from '../components/Container';
 
 const TagTemplate = ({ data, pageContext }) => {
   const posts = orderBy(
@@ -57,7 +56,7 @@ const TagTemplate = ({ data, pageContext }) => {
 
         <CardList>
           {posts.slice(skip, limit * currentPage).map(post => (
-            <Card {...post} key={post.id}  pathPrefix="/blog"/>
+            <BlogCard {...post} key={post.id} pathPrefix="/blog"/>
           ))}
         </CardList>
       </Container>

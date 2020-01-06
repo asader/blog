@@ -19,10 +19,9 @@ const Title = styled.h1`
       color: ${props => props.theme.colors.highlight};
     }
   }
-`
+`;
 
-const PageTitle = props => {
+export const PageTitle = props => {
   return <Title small={props.small}>{props.children}</Title>
-}
+};
 
-export default PageTitle

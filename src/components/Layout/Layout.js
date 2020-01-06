@@ -1,14 +1,14 @@
 import React from 'react'
 import { ThemeProvider } from 'styled-components'
 import Helmet from 'react-helmet'
-import favicon from '../images/favicon.ico'
-import GlobalStyle from '../styles/global'
-import theme from '../styles/theme'
-import config from '../utils/siteConfig'
-import Menu from '../components/Menu'
-import Footer from '../components/Footer'
+import favicon from '../../images/favicon.ico'
+import GlobalStyle from '../../styles/global'
+import theme from '../../styles/theme'
+import config from '../../utils/siteConfig'
+import Menu from './Menu/Menu'
+import { Footer } from './Footer/Footer'
 
-const Template = ({ children }) => {
+export const Layout = ({ children }) => {
   return (
     <div className="siteRoot">
       <Helmet>
@@ -32,4 +32,3 @@ const Template = ({ children }) => {
   )
 }
 
-export default Template

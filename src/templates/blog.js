@@ -1,12 +1,11 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-import Layout from '../components/Layout'
-import CardList from '../components/CardList'
-import Card from '../components/Card'
+import { Layout } from '../components/Layout';
+import { BlogCard, CardList } from '../components/Card'
 import Helmet from 'react-helmet'
-import Container from '../components/Container'
-import Pagination from '../components/Pagination'
-import SEO from '../components/SEO'
+import { Container } from '../components/Container';
+import { Pagination } from '../components/Pagination'
+import { SEO } from '../components/SEO'
 import config from '../utils/siteConfig'
 
 const Index = ({ data, pageContext }) => {
@@ -26,15 +25,15 @@ const Index = ({ data, pageContext }) => {
       <Container>
         {isFirstPage ? (
           <CardList>
-            <Card {...featuredPost} featured pathPrefix={'/blog'}/>
+            <BlogCard {...featuredPost} featured pathPrefix={'/blog'}/>
             {posts.slice(1).map(({ node: post }) => (
-              <Card key={post.id} {...post} pathPrefix={'/blog'}/>
+              <BlogCard key={post.id} {...post} pathPrefix={'/blog'}/>
             ))}
           </CardList>
         ) : (
           <CardList>
             {posts.map(({ node: post }) => (
-              <Card key={post.id} {...post} pathPrefix={'/blog'}/>
+              <BlogCard key={post.id} {...post} pathPrefix={'/blog'}/>
             ))}
           </CardList>
         )}

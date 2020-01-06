@@ -1,44 +1,44 @@
 import React, { Component } from 'react'
 import Helmet from 'react-helmet'
-import config from '../utils/siteConfig'
+import config from '../../utils/siteConfig'
 
-class SEO extends Component {
+export class SEO extends Component {
   render() {
     const { entityNode, pagePath, postSEO, pageSEO, customTitle } = this.props
-    let title
-    let description
-    let image
-    let imgWidth
-    let imgHeight
-    let pageUrl
+    let title;
+    let description;
+    let image;
+    let imgWidth;
+    let imgHeight;
+    let pageUrl;
 
     // Set Default OpenGraph Parameters for Fallback
-    title = config.siteTitle
-    description = config.siteDescription
-    image = config.siteUrl + config.shareImage
-    imgWidth = config.shareImageWidth
-    imgHeight = config.shareImageHeight
-    pageUrl = config.siteUrl
+    title = config.siteTitle;
+    description = config.siteDescription;
+    image = config.siteUrl + config.shareImage;
+    imgWidth = config.shareImageWidth;
+    imgHeight = config.shareImageHeight;
+    pageUrl = config.siteUrl;
 
     if (customTitle) {
-      title = entityNode.title
-      pageUrl = config.siteUrl + '/' + pagePath + '/'
+      title = entityNode.title;
+      pageUrl = config.siteUrl + '/' + pagePath + '/';
     }
 
     // Replace with Page Parameters if post or page
     if (postSEO || pageSEO) {
-      title = entityNode.title
+      title = entityNode.title;
       description =
         entityNode.metaDescription === null
           ? entityNode.body.childMarkdownRemark.excerpt
-          : entityNode.metaDescription.internal.content
+          : entityNode.metaDescription.internal.content;
 
-      pageUrl = config.siteUrl + '/' + pagePath + '/'
+      pageUrl = config.siteUrl + '/' + pagePath + '/';
     }
     // Use Hero Image for OpenGraph
     if (postSEO) {
-      image = 'https:' + entityNode.image.ogimg.src
-      imgWidth = entityNode.image.ogimg.width
+      image = 'https:' + entityNode.image.ogimg.src;
+      imgWidth = entityNode.image.ogimg.width;
       imgHeight = entityNode.image.ogimg.height
     }
 
@@ -151,5 +151,3 @@ class SEO extends Component {
     )
   }
 }
-
-export default SEO

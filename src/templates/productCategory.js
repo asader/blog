@@ -1,13 +1,12 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-import Layout from '../components/Layout'
-import CardList from '../components/CardList'
-import { ProductCard } from '../components/ProductCard'
+import { Layout } from '../components/Layout';
+import { CardList, ProductCard } from '../components/Card'
 import Helmet from 'react-helmet'
-import Container from '../components/Container'
-import SEO from '../components/SEO'
+import { Container } from '../components/Container';
+import { SEO } from '../components/SEO'
 import config from '../utils/siteConfig'
-import PageTitle from "../components/PageTitle";
+import { PageTitle } from "../components/Page";
 
 const ProductCategory = ({ data, pageContext }) => {
   const product = data.allContentfulProduct.edges;
