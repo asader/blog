@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { Link } from 'gatsby'
 import Img from 'gatsby-image'
 
-const Post = styled.li`
+const Product = styled.li`
   position: relative;
   border: 1px solid ${props => props.theme.colors.secondary};
   border-radius: 2px;
@@ -44,26 +44,15 @@ const Title = styled.h2`
   margin: 1rem 1rem 0.5rem 1rem;
 `;
 
-const Date = styled.h3`
-  margin: 0 1rem 0.5rem 1rem;
-  color: gray;
-`;
-
-const ReadingTime = styled.h4`
-  margin: 0 1rem 1.5rem 1rem;
-  color: gray;
-`;
-
 const Excerpt = styled.p`
   margin: 0 1rem 1rem 1rem;
   line-height: 1.6;
 `;
 
-const Card = ({
+export const ProductCard = ({
   slug,
   image,
   title,
-  publishDate,
   body,
   body: {
     childMarkdownRemark: { timeToRead },
@@ -71,20 +60,12 @@ const Card = ({
   ...props
 }) => {
   return (
-    <Post featured={props.featured}>
-      <Link to={`blog/${slug}/`}>
+    <Product featured={props.featured}>
+      <Link to={`/${slug}`}>
         <Img fluid={image.fluid} backgroundColor={'#eeeeee'} />
         <Title>{title}</Title>
-        <Date>{publishDate}</Date>
-        <ReadingTime>{timeToRead} min read</ReadingTime>
-        <Excerpt
-          dangerouslySetInnerHTML={{
-            __html: body.childMarkdownRemark.excerpt,
-          }}
-        />
+        <Excerpt dangerouslySetInnerHTML={{ __html: body.childMarkdownRemark.excerpt }}/>
       </Link>
-    </Post>
+    </Product>
   )
 };
-
-export default Card

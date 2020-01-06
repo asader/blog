@@ -7,62 +7,44 @@ import Hero from '../components/Hero'
 import Container from '../components/Container'
 import PageBody from '../components/PageBody'
 import TagList from '../components/TagList'
-import PostLinks from '../components/PostLinks'
-import PostDetails from '../components/PostDetails'
 import SEO from '../components/SEO'
 
-const PostTemplate = ({ data, pageContext }) => {
+const ProductTemplate = ({ data }) => {
   const {
     title,
     slug,
     image,
     body,
-    publishDate,
     tags,
-  } = data.contentfulPost;
-  const entityNode = data.contentfulPost;
-
-  const previous = pageContext.prev;
-  const next = pageContext.next;
+  } = data.contentfulProduct;
+  const productNode = data.contentfulProduct;
 
   return (
     <Layout>
       <Helmet>
         <title>{`${title} - ${config.siteTitle}`}</title>
       </Helmet>
-      <SEO pagePath={slug} entityNode={entityNode} postSEO />
+      <SEO pagePath={slug} entityNode={productNode} postSEO />
 
       <Hero title={title} image={image} height={'50vh'} />
 
       <Container>
         {tags && <TagList tags={tags} />}
-        <PostDetails
-          date={publishDate}
-          timeToRead={body.childMarkdownRemark.timeToRead}
-        />
         <PageBody body={body} />
       </Container>
-      <PostLinks previous={previous} next={next} />
     </Layout>
-  );
+  )
 };
 
 export const query = graphql`
   query($slug: String!) {
-    contentfulPost(slug: { eq: $slug }) {
+    contentfulProduct(slug: { eq: $slug }) {
       title
       slug
       metaDescription {
         internal {
           content
         }
-      }
-      publishDate(formatString: "MMMM DD, YYYY")
-      publishDateISO: publishDate(formatString: "YYYY-MM-DD")
-      tags {
-        title
-        id
-        slug
       }
       image {
         title
@@ -86,4 +68,4 @@ export const query = graphql`
   }
 `;
 
-export default PostTemplate
+export default ProductTemplate

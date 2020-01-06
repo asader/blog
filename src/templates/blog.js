@@ -3,17 +3,15 @@ import { graphql } from 'gatsby'
 import Layout from '../components/Layout'
 import CardList from '../components/CardList'
 import Card from '../components/Card'
-import { ProductCard } from '../components/ProductCard'
 import Helmet from 'react-helmet'
 import Container from '../components/Container'
+import Pagination from '../components/Pagination'
 import SEO from '../components/SEO'
 import config from '../utils/siteConfig'
 
 const Index = ({ data, pageContext }) => {
   const posts = data.allContentfulPost.edges;
-  const products = data.allContentfulProduct.edges;
   const featuredPost = posts[0].node;
-  const featuredProduct = products[0].node;
   const { currentPage } = pageContext;
   const isFirstPage = currentPage === 1;
 
@@ -26,20 +24,22 @@ const Index = ({ data, pageContext }) => {
         </Helmet>
       )}
       <Container>
-        <CardList>
-          <Card {...featuredPost} pathPrefix={'/blog'} featured />
-          {posts.slice(1).map(({ node: post }) => (
-            <Card key={post.id} pathPrefix={'/blog'} {...post} />
-          ))}
-        </CardList>
-
-        <CardList>
-          <ProductCard {...featuredProduct} featured />
-          {products.slice(1).map(({ node: product }) => (
-            <ProductCard key={product.id} {...product} />
-          ))}
-        </CardList>
+        {isFirstPage ? (
+          <CardList>
+            <Card {...featuredPost} featured pathPrefix={'/blog'}/>
+            {posts.slice(1).map(({ node: post }) => (
+              <Card key={post.id} {...post} pathPrefix={'/blog'}/>
+            ))}
+          </CardList>
+        ) : (
+          <CardList>
+            {posts.map(({ node: post }) => (
+              <Card key={post.id} {...post} pathPrefix={'/blog'}/>
+            ))}
+          </CardList>
+        )}
       </Container>
+      <Pagination context={pageContext} />
     </Layout>
   )
 };
@@ -57,28 +57,6 @@ export const query = graphql`
           id
           slug
           publishDate(formatString: "MMMM DD, YYYY")
-          image {
-            title
-            fluid(maxWidth: 1800) {
-              ...GatsbyContentfulFluid_withWebp_noBase64
-            }
-          }
-          body {
-            childMarkdownRemark {
-              timeToRead
-              html
-              excerpt(pruneLength: 80)
-            }
-          }
-        }
-      }
-    }
-    allContentfulProduct {
-      edges {
-        node {
-          title
-          id
-          slug
           image {
             title
             fluid(maxWidth: 1800) {

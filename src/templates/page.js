@@ -10,14 +10,14 @@ import SEO from '../components/SEO'
 
 const PageTemplate = ({ data }) => {
   const { title, slug, body } = data.contentfulPage
-  const postNode = data.contentfulPage
+  const entityNode = data.contentfulPage
 
   return (
     <Layout>
       <Helmet>
         <title>{`${title} - ${config.siteTitle}`}</title>
       </Helmet>
-      <SEO pagePath={slug} postNode={postNode} pageSEO />
+      <SEO pagePath={slug} entityNode={entityNode} pageSEO />
 
       <Container>
         <PageTitle>{title}</PageTitle>

@@ -8,7 +8,7 @@ import ContactForm from '../components/ContactForm'
 import SEO from '../components/SEO'
 
 const Contact = ({ data }) => {
-  const postNode = {
+  const entityNode = {
     title: `Contact - ${config.siteTitle}`,
   }
 
@@ -17,7 +17,7 @@ const Contact = ({ data }) => {
       <Helmet>
         <title>{`Contact - ${config.siteTitle}`}</title>
       </Helmet>
-      <SEO postNode={postNode} pagePath="contact" customTitle />
+      <SEO entityNode={entityNode} pagePath="contact" customTitle />
 
       <Container>
         <PageTitle>Contact</PageTitle>

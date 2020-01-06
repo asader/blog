@@ -5,6 +5,8 @@ module.exports = {
   siteDescription:
     'A starter template to build amazing static websites with Gatsby, Contentful and Netlify',
   siteUrl: 'https://gcn.netlify.com', // Site domain. Do not include a trailing slash! If you wish to use a path prefix you can read more about that here: https://www.gatsbyjs.org/docs/path-prefix/
+
+  productsPerHomePage: 7, // Number of products shown on the 1st page of of the index.js template (home page)
   postsPerHomePage: 7, // Number of posts shown on the 1st page of of the index.js template (home page)
   postsPerPage: 6, // Number of posts shown on paginated pages
   author: 'GCN User', // Author for RSS author segment and SEO schema

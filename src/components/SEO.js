@@ -4,7 +4,7 @@ import config from '../utils/siteConfig'
 
 class SEO extends Component {
   render() {
-    const { postNode, pagePath, postSEO, pageSEO, customTitle } = this.props
+    const { entityNode, pagePath, postSEO, pageSEO, customTitle } = this.props
     let title
     let description
     let image
@@ -21,25 +21,25 @@ class SEO extends Component {
     pageUrl = config.siteUrl
 
     if (customTitle) {
-      title = postNode.title
+      title = entityNode.title
       pageUrl = config.siteUrl + '/' + pagePath + '/'
     }
 
     // Replace with Page Parameters if post or page
     if (postSEO || pageSEO) {
-      title = postNode.title
+      title = entityNode.title
       description =
-        postNode.metaDescription === null
-          ? postNode.body.childMarkdownRemark.excerpt
-          : postNode.metaDescription.internal.content
+        entityNode.metaDescription === null
+          ? entityNode.body.childMarkdownRemark.excerpt
+          : entityNode.metaDescription.internal.content
 
       pageUrl = config.siteUrl + '/' + pagePath + '/'
     }
     // Use Hero Image for OpenGraph
     if (postSEO) {
-      image = 'https:' + postNode.heroImage.ogimg.src
-      imgWidth = postNode.heroImage.ogimg.width
-      imgHeight = postNode.heroImage.ogimg.height
+      image = 'https:' + entityNode.image.ogimg.src
+      imgWidth = entityNode.image.ogimg.width
+      imgHeight = entityNode.image.ogimg.height
     }
 
     // Default Website Schema
@@ -101,7 +101,7 @@ class SEO extends Component {
             name: config.publisher,
             url: config.siteUrl,
           },
-          datePublished: postNode.publishDateISO,
+          datePublished: entityNode.publishDateISO,
           mainEntityOfPage: pageUrl,
         }
       )

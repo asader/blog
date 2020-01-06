@@ -17,14 +17,14 @@ const TagTemplate = ({ data, pageContext }) => {
     // eslint-disable-next-line
     [object => new moment(object.publishDateISO)],
     ['desc']
-  )
+  );
 
-  const { title, slug } = data.contentfulTag
-  const numberOfPosts = posts.length
-  const skip = pageContext.skip
-  const limit = pageContext.limit
-  const currentPage = pageContext.currentPage
-  const isFirstPage = currentPage === 1
+  const { title, slug } = data.contentfulTag;
+  const numberOfPosts = posts.length;
+  const skip = pageContext.skip;
+  const limit = pageContext.limit;
+  const currentPage = pageContext.currentPage;
+  const isFirstPage = currentPage === 1;
 
   return (
     <Layout>
@@ -57,7 +57,7 @@ const TagTemplate = ({ data, pageContext }) => {
 
         <CardList>
           {posts.slice(skip, limit * currentPage).map(post => (
-            <Card {...post} key={post.id} />
+            <Card {...post} key={post.id}  pathPrefix="/blog"/>
           ))}
         </CardList>
       </Container>
@@ -78,7 +78,7 @@ export const query = graphql`
         slug
         publishDate(formatString: "MMMM DD, YYYY")
         publishDateISO: publishDate(formatString: "YYYY-MM-DD")
-        heroImage {
+        image {
           title
           fluid(maxWidth: 1800) {
             ...GatsbyContentfulFluid_withWebp_noBase64
@@ -94,6 +94,6 @@ export const query = graphql`
       }
     }
   }
-`
+`;
 
 export default TagTemplate
