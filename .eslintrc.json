@@ -1,6 +1,8 @@
 {
   "extends": "gatsby-standard",
   "rules": {
+    "import/extensions": "off",
+    "import/no-unresolved": "off",
     "no-unsafe-finally": "off"
   }
 }

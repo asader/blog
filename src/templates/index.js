@@ -1,3 +1,4 @@
+import { Col, List, Row } from 'antd';
 import React from 'react'
 import { graphql } from 'gatsby'
 import { Layout } from '../components/Layout';
@@ -6,10 +7,11 @@ import Helmet from 'react-helmet'
 import { Container } from '../components/Container';
 import { SEO } from '../components/SEO'
 import config from '../utils/siteConfig'
+import {FlexList} from '../utils/utils';
 
 const Index = ({ data, pageContext }) => {
   const posts = data.allContentfulPost.edges;
-  const products = data.allContentfulProduct.edges;
+  const products = data.allContentfulPizza.edges;
   const featuredPost = posts[0].node;
   const featuredProduct = products[0].node;
   const { currentPage } = pageContext;
@@ -24,19 +26,17 @@ const Index = ({ data, pageContext }) => {
         </Helmet>
       )}
       <Container>
-        <CardList>
-          <BlogCard {...featuredPost} pathPrefix={'/blog'} featured />
-          {posts.slice(1).map(({ node: post }) => (
-            <BlogCard key={post.id} pathPrefix={'/blog'} {...post} />
-          ))}
-        </CardList>
+        <FlexList gutter={16} dataSource={products} renderItem={({ node: product }) => (
+          <Col xs={24} sm={12} lg={8} key={product.id} style={{paddingBottom: 16 }}>
+            <ProductCard {...product}/>
+          </Col>
+        )}/>
 
-        <CardList>
-          <ProductCard {...featuredProduct} featured />
-          {products.slice(1).map(({ node: product }) => (
-            <ProductCard key={product.id} {...product} />
-          ))}
-        </CardList>
+        <FlexList gutter={16} dataSource={posts} renderItem={({node}) => (
+          <Col xs={24} sm={12} lg={8} key={node.id} style={{paddingBottom: 16 }}>
+            <BlogCard {...node}/>
+          </Col>
+        )}/>
       </Container>
     </Layout>
   )
@@ -71,12 +71,15 @@ export const query = graphql`
         }
       }
     }
-    allContentfulProduct {
+    allContentfulPizza {
       edges {
         node {
           title
           id
           slug
+          weight
+          regularPrice
+          salePrice
           image {
             title
             fluid(maxWidth: 1800) {

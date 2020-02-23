@@ -30,7 +30,8 @@ module.exports = {
       copyright: config.copyright,
     },
   },
-  plugins: [
+  plugins: [ 
+    'gatsby-plugin-typescript',
     {
       resolve: 'gatsby-plugin-canonical-urls',
       options: {
@@ -39,6 +40,19 @@ module.exports = {
     },
     'gatsby-plugin-styled-components',
     'gatsby-plugin-react-helmet',
+    {
+      resolve: `gatsby-plugin-less`,
+      options: {
+        javascriptEnabled: true,
+        modifyVars: {
+          'primary-color': '#e63d33',
+          'menu-dark-bg': '#e63d33',
+          'menu-dark-item-active-bg': '#e9534a',
+          'layout-header-background': '#e63d33',
+        }
+      }
+    },
+    'gatsby-plugin-antd',
     {
       resolve: `gatsby-transformer-remark`,
       options: {

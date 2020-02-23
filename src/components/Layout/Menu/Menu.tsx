@@ -2,11 +2,13 @@ import React from 'react'
 import { Link } from 'gatsby'
 import styled from 'styled-components'
 
+import { CartIcon } from './CartIcon';
+
 const Header = styled.header`
   background: ${props => props.theme.colors.base};
   width: 100%;
   padding: 1.5em 0;
-`
+`;
 const Nav = styled.nav`
   width: 100%;
   max-width: ${props => props.theme.sizes.maxWidth};
@@ -38,13 +40,13 @@ const Nav = styled.nav`
       color: white;
     }
   }
-`
+`;
 
 const activeLinkStyle = {
   color: 'white',
-}
+};
 
-const Menu = () => {
+export const Menu = () => {
   return (
     <Header>
       <Nav>
@@ -84,10 +86,11 @@ const Menu = () => {
               Contact
             </Link>
           </li>
+          <li>
+            <CartIcon/>
+          </li>
         </ul>
       </Nav>
     </Header>
   )
-}
-
-export default Menu
+};

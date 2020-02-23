@@ -1,12 +1,13 @@
-import React from 'react'
-import { ThemeProvider } from 'styled-components'
-import Helmet from 'react-helmet'
-import favicon from '../../images/favicon.ico'
-import GlobalStyle from '../../styles/global'
-import theme from '../../styles/theme'
-import config from '../../utils/siteConfig'
-import Menu from './Menu/Menu'
-import { Footer } from './Footer/Footer'
+import React from 'react';
+import { ThemeProvider } from 'styled-components';
+import Helmet from 'react-helmet';
+
+import favicon from '../../images/favicon.ico';
+import GlobalStyle from '../../styles/global';
+import theme from '../../styles/theme';
+import config from '../../utils/siteConfig';
+import { Menu } from './Menu/Menu';
+import { Footer } from './Footer/Footer';
 
 export const Layout = ({ children }) => {
   return (
@@ -30,5 +31,5 @@ export const Layout = ({ children }) => {
       <GlobalStyle />
     </div>
   )
-}
+};
 

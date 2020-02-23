@@ -1,22 +1,15 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-import orderBy from 'lodash/orderBy'
 import Helmet from 'react-helmet'
-import moment from 'moment'
 import config from '../utils/siteConfig'
 import { Layout } from '../components/Layout';
 import { CardList, BlogCard } from '../components/Card'
 import { PageTitle } from '../components/Page';
-import Pagination from '../components/Pagination'
+import { Pagination } from '../components/Pagination'
 import { Container } from '../components/Container';
 
 const TagTemplate = ({ data, pageContext }) => {
-  const posts = orderBy(
-    data.contentfulTag.post,
-    // eslint-disable-next-line
-    [object => new moment(object.publishDateISO)],
-    ['desc']
-  );
+  const posts = data.contentfulTag.post;
 
   const { title, slug } = data.contentfulTag;
   const numberOfPosts = posts.length;

@@ -1,8 +1,12 @@
 const config = require('./src/utils/siteConfig');
 const path = require(`path`);
 
+const capitalize = (str) => {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+};
+
 exports.createPages = ({ graphql, actions }) => {
-  const { createPage } = actions
+  const { createPage } = actions;
 
   const loadPosts = new Promise((resolve) => {
     graphql(`
@@ -71,48 +75,61 @@ exports.createPages = ({ graphql, actions }) => {
     })
   });
 
-  const loadProducts = new Promise((resolve) => {
+  const loadProducts = (productType) => {
+    const endPoint = `allContentful${capitalize(productType)}`;
     graphql(`{
-        allContentfulProductCategory {
+        ${endPoint} {
           nodes {
             slug
-            title
-            product {
-              slug
-            }
           }
         }
       }`).then(result => {
-      console.log(JSON.stringify(result));
-      const categories = result.data.allContentfulProductCategory.nodes;
-      categories.forEach(({slug, title, product }) => {
+      const products = result.data[endPoint].nodes;
+      products.forEach(({slug }) => {
         // Create product category page
         createPage({
-          path: `/${slug}`,
-          component: path.resolve(`./src/templates/productCategory.js`),
+          path: `/${productType}/${slug}`,
+          component: path.resolve(`./src/templates/${productType}.js`),
           context: {
             slug,
-            title,
           },
         });
-
-        // Create each individual product
-        product && product.forEach(({ slug }) => {
-          createPage({
-            path: `/${slug}`,
-            component: path.resolve(`./src/templates/product.js`),
-            context: {
-              slug,
-            },
-          });
-        })
       });
-      resolve()
-    })
-  });
+    });
+  };
+
+  const loadProductCategory = (productType) => {
+    const endPoint = `allContentful${capitalize(productType)}Category`;
+    return graphql(`{
+        ${endPoint} {
+          nodes {
+            slug
+          }
+        }
+      }`).then(result => {
+      const categories = result.data[endPoint].nodes;
+      categories.forEach(({slug }) => {
+        // Create product category page
+        createPage({
+          path: `/${productType}`,
+          component: path.resolve(`./src/templates/${productType}Category.js`),
+          context: {
+            slug,
+          },
+        });
+      });
+    });
+  };
+
+  const loadProductWithCategory = (productType) => {
+    return Promise.all([
+      loadProducts(productType),
+      loadProductCategory(productType)
+    ]);
+  };
 
   const loadMainPage = new Promise((resolve) => {
-    const postsPerFirstPage = config.postsPerHomePage
+    const postsPerFirstPage = config.postsPerHomePage;
 
     // Create main home page
     createPage({
@@ -162,10 +179,10 @@ exports.createPages = ({ graphql, actions }) => {
             },
           })
         })
-      })
+      });
       resolve()
     })
-  })
+  });
 
   const loadPages = new Promise((resolve, reject) => {
     graphql(`
@@ -193,5 +210,11 @@ exports.createPages = ({ graphql, actions }) => {
     })
   })
 
-  return Promise.all([loadMainPage, loadProducts, loadPosts, loadTags, loadPages])
-}
+  return Promise.all([
+    loadMainPage,
+    loadProductWithCategory('pizza'),
+    loadPosts,
+    loadTags,
+    loadPages
+  ]);
+};

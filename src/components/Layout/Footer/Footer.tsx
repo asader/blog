@@ -8,7 +8,7 @@ const Wrapper = styled.footer`
   align-items: flex-start;
   margin: 0 auto;
   max-width: ${props => props.theme.sizes.maxWidth};
-`
+`;
 
 const List = styled.ul`
   display: flex;
@@ -19,7 +19,7 @@ const List = styled.ul`
   border-top: 1px solid ${props => props.theme.colors.secondary};
   padding: 1em 0 2em;
   margin: 0 1.5em;
-`
+`;
 
 const Item = styled.li`
   display: inline-block;
@@ -39,7 +39,7 @@ const Item = styled.li`
       color: ${props => props.theme.colors.base};
     }
   }
-`
+`;
 
 export const Footer = () => (
   <Wrapper>

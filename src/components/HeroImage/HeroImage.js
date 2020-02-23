@@ -9,7 +9,7 @@ const Wrapper = styled.section`
 const BgImg = styled(Img)`
   position: absolute;
   top: 0;
-  left: 0;
+  left: 50%;
   width: 100%;
   z-index: -1;
   min-height: 300px;
@@ -52,12 +52,12 @@ const Title = styled.h1`
 
 export const HeroImage = props => (
   <Wrapper>
-    <BgImg
+    <Img
       height={props.height}
       fluid={props.image.fluid}
+      alt={props.title}
       backgroundColor={'#eeeeee'}
     />
-    <Title>{props.title}</Title>
   </Wrapper>
 )
 

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Card = styled.li`
+export const CustomCard = styled.li`
   position: relative;
   border: 1px solid ${props => props.theme.colors.secondary};
   border-radius: 2px;
@@ -34,6 +34,36 @@ export const Card = styled.li`
   }
 `;
 
+export const ProductDescription = styled.div`
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	flex-shrink: 0;
+`;
+
+export const ProductTitle = styled.span`
+	font-size: 20px;
+	line-height: 1.3333334;
+	font-weight: 500;
+	letter-spacing: -.5px;
+	word-break: break-word;
+	text-align: left;
+	color: #414141;
+`;
+
+
+export const Weight = styled.div`
+	font-size: 13px;
+	font-weight: 400;
+	line-height: 1.31;
+	letter-spacing: -.3px;
+	text-align: right;
+	color: #414141;
+	min-width: 35px;
+	padding-top: 4px;
+	white-space: nowrap;
+`;
+
 export const Title = styled.h2`
   font-size: 1.5em;
   font-weight: 600;
@@ -52,6 +82,30 @@ export const ReadingTime = styled.h4`
 `;
 
 export const Excerpt = styled.p`
-  margin: 0 1rem 1rem 1rem;
-  line-height: 1.6;
+  color: #414141;
+  padding-top: 10px;
+  font-size: 15px;
+  line-height: 1.33;
+  letter-spacing: -.4px;
+  text-align: left;
+`;
+
+export const CardFooter = styled.div`
+	width: 100%;
+`;
+
+export const Price = styled.div`
+	color: #414141;
+	font-size: 24px;
+	font-weight: 500;
+	letter-spacing: -.6px;
+	text-align: left;
+	white-space: nowrap;
+`;
+
+export const Currency = styled.label`
+	font-family: rouble;
+	font-size: 100%;
+	font-weight: 400;
+	display: inline-block;
 `;

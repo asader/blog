@@ -25,15 +25,15 @@ const Index = ({ data, pageContext }) => {
       <Container>
         {isFirstPage ? (
           <CardList>
-            <BlogCard {...featuredPost} featured pathPrefix={'/blog'}/>
+            <BlogCard {...featuredPost} featured/>
             {posts.slice(1).map(({ node: post }) => (
-              <BlogCard key={post.id} {...post} pathPrefix={'/blog'}/>
+              <BlogCard key={post.id} {...post}/>
             ))}
           </CardList>
         ) : (
           <CardList>
             {posts.map(({ node: post }) => (
-              <BlogCard key={post.id} {...post} pathPrefix={'/blog'}/>
+              <BlogCard key={post.id} {...post}/>
             ))}
           </CardList>
         )}

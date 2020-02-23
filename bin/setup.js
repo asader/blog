@@ -63,6 +63,7 @@ inquirer
       JSON.stringify(
         {
           development: {
+            gatsbyContentfulOffline: true,
             host: 'preview.contentful.com',
             spaceId,
             accessToken: previewToken,

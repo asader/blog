@@ -8,17 +8,41 @@ import { Container } from '../components/Container';
 import { PageBody } from '../components/Page';
 import { TagList } from '../components/TagList';
 import { SEO } from '../components/SEO'
+import { Row, Col, Typography } from 'antd';
+import { Composition, EnergyValue } from '../components/Product';
+import {Offer} from '../components/Product/Offer';
+
+const { Title } = Typography;
 
 const ProductTemplate = ({ data }) => {
   const {
+    id,
     title,
     slug,
     image,
     body,
     tags,
+    ingredients,
+    regularPrice,
+    salePrice,
+    fats,
+    carbohydrates,
+    proteins,
+    energyValue
   } = data.contentfulProduct;
   const productNode = data.contentfulProduct;
+  const price = regularPrice.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB' });
 
+  const product = {
+    id,
+    title,
+    slug,
+    image,
+    regularPrice,
+    price,
+    rootCategory: 'pizza',
+    quantity: 1,
+  };
   return (
     <Layout>
       <Helmet>
@@ -26,11 +50,21 @@ const ProductTemplate = ({ data }) => {
       </Helmet>
       <SEO pagePath={slug} entityNode={productNode} postSEO />
 
-      <HeroImage title={title} image={image} height={'50vh'} />
-
       <Container>
-        {tags && <TagList tags={tags} />}
-        <PageBody body={body} />
+        <Row gutter={16}>
+          <Col md={12}>
+            <HeroImage title={title} image={image} height={'50vh'} />
+          </Col>
+          <Col md={12}>
+            <Title>{title}</Title>
+            {tags && <TagList tags={tags} />}
+            <PageBody body={body} />
+            <Composition composition={composition}/>
+            <EnergyValue energyValue={{ fats, carbohydrates, proteins, energyValue }}/>
+            <Offer style={{marginTop: 20}} product={product}/>
+          </Col>
+        </Row>
+
       </Container>
     </Layout>
   )
@@ -39,6 +73,7 @@ const ProductTemplate = ({ data }) => {
 export const query = graphql`
   query($slug: String!) {
     contentfulProduct(slug: { eq: $slug }) {
+      id
       title
       slug
       metaDescription {
@@ -64,6 +99,17 @@ export const query = graphql`
           excerpt(pruneLength: 320)
         }
       }
+      energyValue
+      fats
+      carbohydrates
+      proteins
+
+      regularPrice
+      salePrice
+
+      composition { composition }
+
+      weight
     }
   }
 `;
