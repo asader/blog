@@ -1,9 +1,6 @@
 import styled, { css } from 'styled-components';
 import { Button } from 'antd';
 
-const likeUrl = 'https://dostaevsky.ru/files/images/to-fav.svg';
-const unlikeUrl = 'https://dostaevsky.ru/files/images/from-fav.svg';
-
 export const TheLikeButton = styled(Button)`
 	${props => props.isLiked ? css`
     background-color: red!important;
@@ -14,7 +11,6 @@ export const TheLikeButton = styled(Button)`
       background-color: red!important;
     }
   ` : css`
-    background-image: url(${likeUrl});
     &:hover {
       color: red!important;
       border-color: red!important;

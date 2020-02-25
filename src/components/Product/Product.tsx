@@ -12,6 +12,29 @@ import { Composition } from './Composition';
 import { EnergyValue } from './EnergyValue';
 import { Offer } from './Offer';
 
+export type CProductId = string;
+
+interface TitleWithSlug {
+	title: string;
+	slug: string;
+}
+
+export interface CProduct {
+	id: CProductId;
+	title: string;
+	slug: string;
+	updatedAt: string;
+	image: any;
+	body: any;
+	ingredients: TitleWithSlug[];
+	categories: TitleWithSlug[];
+	regularPrice: number;
+	salePrice: number;
+	fats: string;
+	carbohydrates: string;
+	proteins: string;
+	energyValue: string;
+}
 const Title = Typography.Title;
 export const Product = ({ data: { contentfulPizza } }) => {
 	const {
@@ -31,7 +54,7 @@ export const Product = ({ data: { contentfulPizza } }) => {
 	} = contentfulPizza;
 	let price = salePrice ? salePrice : regularPrice;
 	price = price.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB' });
-
+	const ingredientsList = ingredients ? ingredients.map(ingredient => ingredient.title).join(', ') : '';
 	const product = {
 		id,
 		title,
@@ -56,9 +79,8 @@ export const Product = ({ data: { contentfulPizza } }) => {
 					</Col>
 					<Col md={12}>
 						<Title>{title}</Title>
-						{tags && <TagList tags={tags} />}
 						<PageBody body={body} />
-						<Composition composition={ingredients}/>
+						<Composition composition={ingredientsList}/>
 						<EnergyValue energyValue={{ fats, carbohydrates, proteins, energyValue }}/>
 						<Offer style={{marginTop: 20}} product={product}/>
 					</Col>

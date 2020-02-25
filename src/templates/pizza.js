@@ -44,7 +44,10 @@ export const query = graphql`
 
       regularPrice
       salePrice
-      ingredients
+      ingredients {
+        title
+        slug
+      }
 
       weight
     }

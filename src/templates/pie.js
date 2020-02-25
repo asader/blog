@@ -14,7 +14,7 @@ export const query = graphql`
       id
       title
       slug
-      category {
+      categories {
         slug
         title
       }
@@ -49,7 +49,10 @@ export const query = graphql`
       regularPrice
       salePrice
 
-      ingredients
+      ingredients {
+        title
+        slug
+      }
 
       weight
     }

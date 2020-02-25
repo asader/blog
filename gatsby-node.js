@@ -24,12 +24,12 @@ exports.createPages = ({ graphql, actions }) => {
         }
       }
     `).then(result => {
-      const posts = result.data.allContentfulPost.edges
-      const postsPerFirstPage = config.postsPerHomePage
-      const postsPerPage = config.postsPerPage
+      const posts = result.data.allContentfulPost.edges;
+      const postsPerFirstPage = config.postsPerHomePage;
+      const postsPerPage = config.postsPerPage;
       const numPages = Math.ceil(
         posts.slice(postsPerFirstPage).length / postsPerPage
-      )
+      );
 
       // Create main home page
       createPage({
@@ -41,7 +41,7 @@ exports.createPages = ({ graphql, actions }) => {
           numPages: numPages + 1,
           currentPage: 1,
         },
-      })
+      });
 
       // Create additional pagination on home page if needed
       Array.from({ length: numPages }).forEach((_, i) => {
@@ -55,12 +55,12 @@ exports.createPages = ({ graphql, actions }) => {
             currentPage: i + 2,
           },
         })
-      })
+      });
 
       // Create each individual post
       posts.forEach((edge, i) => {
-        const prev = i === 0 ? null : posts[i - 1].node
-        const next = i === posts.length - 1 ? null : posts[i + 1].node
+        const prev = i === 0 ? null : posts[i - 1].node;
+        const next = i === posts.length - 1 ? null : posts[i + 1].node;
         createPage({
           path: `blog/${edge.node.slug}/`,
           component: path.resolve(`./src/templates/post.js`),
@@ -70,7 +70,7 @@ exports.createPages = ({ graphql, actions }) => {
             next,
           },
         })
-      })
+      });
       resolve()
     })
   });
@@ -85,11 +85,15 @@ exports.createPages = ({ graphql, actions }) => {
         }
       }`).then(result => {
       const products = result.data[endPoint].nodes;
+      createPage({
+        path: `/${productType}/`,
+        component: path.resolve(`./src/templates/${productType}/products.tsx`),
+      });
       products.forEach(({slug }) => {
         // Create product category page
         createPage({
           path: `/${productType}/${slug}`,
-          component: path.resolve(`./src/templates/${productType}.js`),
+          component: path.resolve(`./src/templates/${productType}/product.js`),
           context: {
             slug,
           },
@@ -100,6 +104,29 @@ exports.createPages = ({ graphql, actions }) => {
 
   const loadProductCategory = (productType) => {
     const endPoint = `allContentful${capitalize(productType)}Category`;
+    return graphql(`{
+        ${endPoint} {
+          nodes {
+            slug
+          }
+        }
+      }`).then(result => {
+      const categories = result.data[endPoint].nodes;
+      categories.forEach(({slug }) => {
+        // Create product category page
+        createPage({
+          path: `/${productType}`,
+          component: path.resolve(`./src/templates/${productType}Category.js`),
+          context: {
+            slug,
+          },
+        });
+      });
+    });
+  };
+
+  const loadPizza = (productType) => {
+    const endPoint = `allContentful${capitalize(productType)}`;
     return graphql(`{
         ${endPoint} {
           nodes {
