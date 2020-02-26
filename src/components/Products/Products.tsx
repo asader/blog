@@ -1,34 +1,46 @@
 import { Col, Row } from 'antd';
-import * as React from 'react';
+import { graphql, navigate, useStaticQuery } from 'gatsby'
+import React, { useState } from 'react';
 
 import { Layout } from '../Layout';
-import { ProductFilter } from './ProductFilter';
-import {ProductList} from './ProductList';
-import {ProductSort, SORT_ATTRIBUTE, SORT_DIRECTION, SortParams} from './ProductSort';
-import {stringToSlug} from '../../utils';
-import {CategoryTags, SelectedAttributes} from './Categories/CategoryTags';
-import {RootCategory} from '../utils/utils';
-import {useState, useEffect} from 'react';
-import {SeoTags, seoTagsByRootCategory} from './SEO/getSeoTag';
+import { ProductList } from './ProductList';
+import { ProductSort } from './ProductSort';
+import { CheckableTagList } from './Categories/CategoryTags';
 import { SEO } from '../SEO';
 import { Container } from '../Container';
-import { CProduct } from '../Product/Product';
+import { CProduct, CProductСategory } from '../Product/Product';
 
 export interface StoreProps {
 	pageContext: {
-		selectedAttribute: SelectedAttributes;
-		rootCategory: RootCategory;
+		categories: CProductСategory[];
+		selectedCategory?: string;
 		products: CProduct[];
 	};
 }
 
-export const Products: React.FunctionComponent<StoreProps> = ({pageContext}) => {
-	const [products] = useState(pageContext.products);
 
+export const Products: React.FunctionComponent<StoreProps> = ({pageContext}) => {
+	const categoriesData = useStaticQuery(graphql`
+		query {
+			allContentfulPizzaCategory {
+				nodes {
+					slug
+					title
+				}
+			}
+		}
+	`);
+
+	const categories = categoriesData.allContentfulPizzaCategory.nodes;
+	const { selectedCategory } = pageContext;
+	const [products] = useState(pageContext.products);
 	const { h1, title, description } = {
 		h1: 'Pizza',
 		title: 'Pizza',
 		description: 'Pizza',
+	};
+	const onCategoryChange = (category: CProductСategory) => {
+		navigate(`/${category.slug}`);
 	};
 	return (
 		<Layout>
@@ -43,10 +55,9 @@ export const Products: React.FunctionComponent<StoreProps> = ({pageContext}) => 
 			</Row>
 			<Row gutter={16}>
 				<Col span={24}>
-					<CategoryTags
-						onFilter={(filters) => filterProducts(filters)}
-						attributes={materials}
-						selectedAttributes={getSelectedAttributes()}/>
+					<CheckableTagList entities={categories}
+					                  selectedEntity={selectedCategory}
+					                  onChange={onCategoryChange}/>
 				</Col>
 			</Row>
 			<Row gutter={16}>

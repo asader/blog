@@ -1,37 +1,27 @@
 import * as React from 'react';
-import {CategoryTag} from './CategoryTag';
+import { TitleWithSlug } from '../../Product/Product';
+import { Tag } from 'antd';
 
-// TODO Rename it
-export type Attributes = Record<string, string[]>;
-// TODO Rename it
-export type SelectedAttributes = Record<string, Record<string, boolean>>;
+const { CheckableTag } = Tag;
+
 interface Props {
 	// TODO Rewrite this
-	attributes: Attributes;
-	selectedAttributes: SelectedAttributes;
-	onFilter: (filters: SelectedAttributes) => void;
+	entities: TitleWithSlug[];
+	selectedEntity: string;
+	onChange: (entity: TitleWithSlug) => void
 }
-export const CategoryTags: React.FunctionComponent<Props> = ({ attributes, selectedAttributes, onFilter }) => {
-
-	const onChange = (groupName: string, attrName: string) => {
-		const isChecked = selectedAttributes[groupName] ? selectedAttributes[groupName][attrName] : false;
-		const filters = selectedAttributes || {};
-		filters[groupName] = filters[groupName] || {};
-		if (!isChecked) {
-			filters[groupName][attrName] = true;
-		} else {
-			delete filters[groupName][attrName];
-		}
-		if (!Object.keys(filters[groupName]).length) {
-			delete filters[groupName];
-		}
-		onFilter(filters);
-	};
-	const tags = Object.entries(attributes).map(([name, options]) => options.map((attrName) => <CategoryTag onChange={onChange} key={attrName} groupName={name} attrName={attrName} selectedAttributes={selectedAttributes}/>));
-
+export const CheckableTagList: React.FunctionComponent<Props> = ({ entities, selectedEntity, onChange }) => {
+	const categories = entities.map((category) => {
+		const { title, slug } = category;
+		return <CheckableTag
+			checked={title === selectedEntity}
+			key={slug}
+			onChange={() => onChange(category)}
+		>{title}</CheckableTag>
+	});
 	return (
 		<div style={{marginBottom: 30}}>
-			{tags}
+			{categories}
 		</div>
 	);
 };

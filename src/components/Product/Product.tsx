@@ -14,10 +14,13 @@ import { Offer } from './Offer';
 
 export type CProductId = string;
 
-interface TitleWithSlug {
+export interface TitleWithSlug {
 	title: string;
 	slug: string;
 }
+
+export type CProductСategory = TitleWithSlug;
+export type CProductIngredient = TitleWithSlug;
 
 export interface CProduct {
 	id: CProductId;
@@ -26,8 +29,8 @@ export interface CProduct {
 	updatedAt: string;
 	image: any;
 	body: any;
-	ingredients: TitleWithSlug[];
-	categories: TitleWithSlug[];
+	ingredients: CProductIngredient[];
+	categories: CProductСategory[];
 	regularPrice: number;
 	salePrice: number;
 	fats: string;
