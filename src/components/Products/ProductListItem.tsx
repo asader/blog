@@ -6,19 +6,19 @@ import Img from 'gatsby-image';
 
 import {Attribute} from '../Attribute';
 import {Price} from '../Price';
-import {getShortListOfAttributes, RootCategory} from '../utils/utils';
 import {stringToSlug} from '../../utils';
 import {ActionType} from '../../enum/actionType';
 import {ColorByLabel, Label} from '../../enum/colorByLabel';
 import {CProduct} from './ProductListCards';
+import { ProductType } from '../../utils/utils';
 
 interface Props {
 	product: CProduct;
-	rootCategory: RootCategory;
+	productType: ProductType;
 	onQuantityChange: (quantity: number) => void;
 }
 
-const ProductListItem: React.FunctionComponent<Props> = ({product, rootCategory, onQuantityChange}) => {
+const ProductListItem: React.FunctionComponent<Props> = ({product, productType, onQuantityChange}) => {
 	const {
 		image,
 		salePrice,
@@ -42,7 +42,7 @@ const ProductListItem: React.FunctionComponent<Props> = ({product, rootCategory,
 				</Link>
 			</Col>
 			<Col xs={{ span: 24 }} lg={{ span: 10 }}>
-				<p style={{margin: 0, padding: 0, fontSize: 13, color: '#999'}}>{rootCategory}</p>
+				<p style={{margin: 0, padding: 0, fontSize: 13, color: '#999'}}>{productType}</p>
 				<Link to={formattedSlug} className="has-text-primary">
 					<h3 className="title has-text-weight-bold is-bold-light">{name}</h3>
 				</Link>

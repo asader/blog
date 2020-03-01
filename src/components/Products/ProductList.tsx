@@ -3,14 +3,14 @@ import { graphql } from 'gatsby';
 import * as React from 'react';
 import ProductListItem from './ProductListItem';
 import {CProduct} from './ProductListCards';
-import {RootCategory} from '../utils/utils';
+import { ProductType } from '../../utils/utils';
 
 interface Props {
 	products: CProduct[];
-	rootCategory: RootCategory;
+	productType: ProductType;
 }
 
-export const ProductList: React.FunctionComponent<Props> = ({products, rootCategory}) => (
+export const ProductList: React.FunctionComponent<Props> = ({products, productType}) => (
 	<div>
 		<List
 			itemLayout="vertical"
@@ -19,7 +19,7 @@ export const ProductList: React.FunctionComponent<Props> = ({products, rootCateg
 			rowKey="id"
 			renderItem={(product) => (
 				<List.Item key={product.id}>
-					<ProductListItem product={product} rootCategory={rootCategory}/>
+					<ProductListItem product={product} productType={productType}/>
 				</List.Item>
 			)}
 		/>
@@ -29,7 +29,7 @@ export const ProductList: React.FunctionComponent<Props> = ({products, rootCateg
 export const pageQuery = graphql`
   fragment ProductListFields on ContentfulPizza {
 		id
-		images {
+		image {
 			alt
 			localFile {
 				childImageSharp {

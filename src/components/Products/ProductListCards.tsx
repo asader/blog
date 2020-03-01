@@ -110,7 +110,7 @@ export const pageQuery = graphql`
 	  id
 		title
     slug
-    images {
+    image {
 			alt
 			localFile {
 				childImageSharp {

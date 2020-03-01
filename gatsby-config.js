@@ -1,5 +1,5 @@
-const config = require('./src/utils/siteConfig')
-let contentfulConfig
+const config = require('./src/utils/siteConfig');
+let contentfulConfig;
 
 try {
   contentfulConfig = require('./.contentful')

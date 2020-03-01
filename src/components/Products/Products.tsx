@@ -1,38 +1,22 @@
 import { Col, Row } from 'antd';
-import { graphql, navigate, useStaticQuery } from 'gatsby'
+import { navigate } from 'gatsby'
 import React, { useState } from 'react';
 
 import { Layout } from '../Layout';
 import { ProductList } from './ProductList';
 import { ProductSort } from './ProductSort';
-import { CheckableTagList } from './Categories/CategoryTags';
+import { CheckableTagList } from '../CheckableTagList';
 import { SEO } from '../SEO';
 import { Container } from '../Container';
-import { CProduct, CProductСategory } from '../Product/Product';
+import { CProductСategory } from '../Product/Product';
+import { CatalogPageContext } from '../../templates/pizza/catalog';
 
 export interface StoreProps {
-	pageContext: {
-		categories: CProductСategory[];
-		selectedCategory?: string;
-		products: CProduct[];
-	};
+	pageContext: CatalogPageContext;
 }
 
-
 export const Products: React.FunctionComponent<StoreProps> = ({pageContext}) => {
-	const categoriesData = useStaticQuery(graphql`
-		query {
-			allContentfulPizzaCategory {
-				nodes {
-					slug
-					title
-				}
-			}
-		}
-	`);
-
-	const categories = categoriesData.allContentfulPizzaCategory.nodes;
-	const { selectedCategory } = pageContext;
+	const { categorySlug, productType, categories } = pageContext;
 	const [products] = useState(pageContext.products);
 	const { h1, title, description } = {
 		h1: 'Pizza',
@@ -40,7 +24,7 @@ export const Products: React.FunctionComponent<StoreProps> = ({pageContext}) => 
 		description: 'Pizza',
 	};
 	const onCategoryChange = (category: CProductСategory) => {
-		navigate(`/${category.slug}`);
+		navigate(`/${productType}/${category.slug}`);
 	};
 	return (
 		<Layout>
@@ -56,14 +40,14 @@ export const Products: React.FunctionComponent<StoreProps> = ({pageContext}) => 
 			<Row gutter={16}>
 				<Col span={24}>
 					<CheckableTagList entities={categories}
-					                  selectedEntity={selectedCategory}
+					                  selectedEntity={categorySlug}
 					                  onChange={onCategoryChange}/>
 				</Col>
 			</Row>
 			<Row gutter={16}>
 				<Col xs={{ span: 24 }} lg={{ span: 18 }}>
 					<ProductSort onSort={() => {}}/>
-					<ProductList products={products} rootCategory={pageContext.rootCategory}/>
+					<ProductList products={products} productType={productType}/>
 				</Col>
 			</Row>
 			</Container>
