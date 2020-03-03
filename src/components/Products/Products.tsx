@@ -16,8 +16,7 @@ export interface StoreProps {
 }
 
 export const Products: React.FunctionComponent<StoreProps> = ({pageContext}) => {
-	const { productType, categories, types } = pageContext;
-	const [products] = useState(pageContext.products);
+	const { productType, categories, types, products } = pageContext;
 	const [typeSlug, setTypeSlug] = useState(pageContext.typeSlug);
 	const [categorySlug, setCategorySlug] = useState(pageContext.categorySlug);
 	const { h1, title, description } = {
