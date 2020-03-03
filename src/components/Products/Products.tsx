@@ -2,13 +2,14 @@ import { Col, Row } from 'antd';
 import React, { useState } from 'react';
 
 import { Layout } from '../Layout';
-import { ProductList } from './ProductList';
+import { ProductCard } from '../Card';
 import { ProductSort } from './ProductSort';
 import { CheckableTagList } from '../CheckableTagList';
 import { SEO } from '../SEO';
 import { Container } from '../Container';
 import { CProductType, CProductСategory } from '../Product/Product';
 import { CatalogPageContext } from '../../templates/pizza/catalog';
+import {FlexList} from "../../utils/utils";
 
 export interface StoreProps {
 	pageContext: CatalogPageContext;
@@ -71,7 +72,11 @@ export const Products: React.FunctionComponent<StoreProps> = ({pageContext}) => 
 			<Row gutter={16}>
 				<Col xs={{ span: 24 }} lg={{ span: 18 }}>
 					<ProductSort onSort={() => {}}/>
-					<ProductList products={products} productType={productType}/>
+					<FlexList gutter={16} dataSource={products} renderItem={({ node: product }) => (
+						<Col xs={24} sm={12} lg={8} key={product.id} style={{paddingBottom: 16 }}>
+							<ProductCard {...product}/>
+						</Col>
+					)}/>
 				</Col>
 			</Row>
 			</Container>
