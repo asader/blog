@@ -139,28 +139,41 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions 
 					productType: productType,
 				},
 			});
-			categories.forEach(({ slug }) => {
+			categories.forEach((category) => {
 				createPage({
-					path: `/${productType}/${slug}`,
+					path: `/${productType}/${category.slug}`,
 					component: path.resolve(`./src/templates/${productType}/catalog.tsx`),
 					context: {
-						categorySlug: slug,
+						categorySlug: category.slug,
 						categories,
 						types,
 						productType: productType,
 					},
 				});
 			});
-			types.forEach(({ slug }) => {
+			types.forEach((type) => {
 				createPage({
-					path: `/${productType}/${slug}`,
+					path: `/${productType}/${type.slug}`,
 					component: path.resolve(`./src/templates/${productType}/catalog.tsx`),
 					context: {
-						typeSlug: slug,
+						typeSlug: type.slug,
 						categories,
 						types,
 						productType: productType,
 					},
+				});
+				categories.forEach((category) => {
+					createPage({
+						path: `/${productType}/${type.slug}/${category.slug}`,
+						component: path.resolve(`./src/templates/${productType}/catalog.tsx`),
+						context: {
+							categorySlug: category.slug,
+							typeSlug: type.slug,
+							categories,
+							types,
+							productType: productType,
+						},
+					});
 				});
 			});
 		});

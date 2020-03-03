@@ -20,6 +20,7 @@ export interface TitleWithSlug {
 }
 
 export type CProductСategory = TitleWithSlug;
+export type CProductType = TitleWithSlug;
 export type CProductIngredient = TitleWithSlug;
 
 export interface CProduct {
@@ -31,6 +32,7 @@ export interface CProduct {
 	body: any;
 	ingredients: CProductIngredient[];
 	categories: CProductСategory[];
+	types: CProductType[];
 	regularPrice: number;
 	salePrice: number;
 	fats: string;

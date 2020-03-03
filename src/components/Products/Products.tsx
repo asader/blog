@@ -8,7 +8,7 @@ import { ProductSort } from './ProductSort';
 import { CheckableTagList } from '../CheckableTagList';
 import { SEO } from '../SEO';
 import { Container } from '../Container';
-import { CProductСategory } from '../Product/Product';
+import { CProductType, CProductСategory } from '../Product/Product';
 import { CatalogPageContext } from '../../templates/pizza/catalog';
 
 export interface StoreProps {
@@ -16,17 +16,35 @@ export interface StoreProps {
 }
 
 export const Products: React.FunctionComponent<StoreProps> = ({pageContext}) => {
-	const { categorySlug, productType, categories } = pageContext;
+	const { productType, categories, types } = pageContext;
 	const [products] = useState(pageContext.products);
+	const [typeSlug, setTypeSlug] = useState(pageContext.typeSlug);
+	const [categorySlug, setCategorySlug] = useState(pageContext.categorySlug);
 	const { h1, title, description } = {
 		h1: 'Pizza',
 		title: 'Pizza',
 		description: 'Pizza',
 	};
-	const onCategoryChange = (category: CProductСategory) => {
-		navigate(`/${productType}/${category.slug}`);
+
+	const onTypeChange = (type: CProductType) => {
+		setTypeSlug(type.slug);
 	};
-	return (
+	const onCategoryChange = (category: CProductСategory) => {
+		setCategorySlug(category.slug);
+	};
+
+	const getSlug = (typeSlug?: string, categorySlug?: string) => {
+		const entitySlug = [];
+		if (typeSlug) {
+			entitySlug.push(typeSlug);
+		}
+		if (categorySlug) {
+			entitySlug.push(categorySlug);
+		}
+		return `/${productType}/${entitySlug.join('/')}`;
+	};
+
+		return (
 		<Layout>
 			<Container>
 			<SEO title={title} description={description} />
@@ -39,9 +57,16 @@ export const Products: React.FunctionComponent<StoreProps> = ({pageContext}) => 
 			</Row>
 			<Row gutter={16}>
 				<Col span={24}>
+					<CheckableTagList entities={types}
+					                  selectedEntitySlug={typeSlug}
+					                  getSlug={(typeSlug) => getSlug(typeSlug, categorySlug)}
+														onChange={(entity) => onTypeChange(entity)}/>
+				</Col>
+				<Col span={24}>
 					<CheckableTagList entities={categories}
-					                  selectedEntity={categorySlug}
-					                  onChange={onCategoryChange}/>
+					                  selectedEntitySlug={categorySlug}
+					                  getSlug={(categorySlug) => getSlug(typeSlug, categorySlug)}
+					                  onChange={(entity) => onCategoryChange(entity)}/>
 				</Col>
 			</Row>
 			<Row gutter={16}>
