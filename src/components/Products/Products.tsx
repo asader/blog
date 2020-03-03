@@ -1,5 +1,4 @@
 import { Col, Row } from 'antd';
-import { navigate } from 'gatsby'
 import React, { useState } from 'react';
 
 import { Layout } from '../Layout';
