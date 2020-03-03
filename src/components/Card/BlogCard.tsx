@@ -1,6 +1,6 @@
-import { Card, Col } from 'antd';
+import { Card } from 'antd';
 import React from 'react'
-import { Title, Excerpt, StyledCard } from './style'
+import { Excerpt } from './style'
 import { Link } from 'gatsby'
 import Img from 'gatsby-image'
 

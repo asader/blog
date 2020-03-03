@@ -1,4 +1,5 @@
 import { Col, Row } from 'antd';
+import { navigate } from 'gatsby';
 import React, { useState } from 'react';
 
 import { Layout } from '../Layout';
@@ -27,9 +28,11 @@ export const Products: React.FunctionComponent<StoreProps> = ({pageContext}) => 
 
 	const onTypeChange = (type: CProductType) => {
 		setTypeSlug(type.slug);
+		navigate(getSlug(type.slug, categorySlug));
 	};
 	const onCategoryChange = (category: CProductСategory) => {
 		setCategorySlug(category.slug);
+		navigate(getSlug(typeSlug, category.slug));
 	};
 
 	const getSlug = (typeSlug?: string, categorySlug?: string) => {
@@ -71,7 +74,7 @@ export const Products: React.FunctionComponent<StoreProps> = ({pageContext}) => 
 			<Row gutter={16}>
 				<Col xs={{ span: 24 }} lg={{ span: 18 }}>
 					<ProductSort onSort={() => {}}/>
-					<FlexList gutter={16} dataSource={products} renderItem={({ node: product }) => (
+					<FlexList gutter={16} dataSource={products} renderItem={(product) => (
 						<Col xs={24} sm={12} lg={8} key={product.id} style={{paddingBottom: 16 }}>
 							<ProductCard {...product}/>
 						</Col>

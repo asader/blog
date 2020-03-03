@@ -6,34 +6,29 @@ import {
   ProductDescription,
   ProductTitle,
   CardFooter,
-  Currency,
   Price
 } from './style'
 import { Link } from 'gatsby'
 import Img from 'gatsby-image'
 import {Card} from 'antd';
 
-export const ProductCard = ({
-  slug,
-  image,
-  title,
-  regularPrice,
-  salePrice,
-  weight,
-  body,
-  body: {
-    childMarkdownRemark: { timeToRead },
-  },
-  ...props
-}) => {
+export const ProductCard = (props) => {
+  const {
+    slug,
+    image,
+    title,
+    regularPrice,
+    weight,
+    body,
+  } = props;
   const price = regularPrice.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB' });
   return (
     <Link to={`/pizza/${slug}`}>
       <Card
         hoverable
-        cover={<Img fluid={image.fluid} backgroundColor={'#eeeeee'}/>}
+        cover={<Img fluid={image ? image.fluid : undefined} backgroundColor={'#eeeeee'}/>}
         bodyStyle={{ position: 'relative' }}>
-        <LikeButton isLiked={false}/>
+        <LikeButton isliked={false}/>
         <ProductDescription>
           <ProductTitle>{title}</ProductTitle>
           <Weight>{weight} g</Weight>

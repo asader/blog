@@ -23,7 +23,7 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions 
 	const { createPage } = actions;
 
 	const loadPosts = new Promise((resolve) => {
-		graphql(`
+		graphql<any>(`
       {
         allContentfulPost(
           sort: { fields: [publishDate], order: DESC }
@@ -240,7 +240,7 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions 
 	});
 
 	const loadTags = new Promise((resolve) => {
-		graphql(`
+		graphql<any>(`
       {
         allContentfulTag {
           edges {
@@ -281,7 +281,7 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions 
 	});
 
 	const loadPages = new Promise((resolve, reject) => {
-		graphql(`
+		graphql<any>(`
       {
         allContentfulPage {
           edges {
