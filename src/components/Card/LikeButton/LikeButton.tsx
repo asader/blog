@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { TheLikeButton } from './style';
 
-export const LikeButton = ({ isliked }) => {
-  const [liked, setLiked] = useState(isliked);
+export const LikeButton = ({ isLiked }: { isLiked: boolean }) => {
+  const [liked, setLiked] = useState(isLiked);
   return <TheLikeButton onClick={(e) => {
     e.preventDefault();
     setLiked(!liked);

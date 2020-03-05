@@ -26,7 +26,7 @@ export const ProductCard = (props) => {
     <Link to={`/pizza/${slug}`}>
       <Card
         hoverable
-        cover={<Img fluid={image ? image.fluid : undefined} backgroundColor={'#eeeeee'}/>}
+        cover={image && image.fluid.src && <Img fluid={image.fluid} backgroundColor={'#eeeeee'}/>}
         bodyStyle={{ position: 'relative' }}>
         <LikeButton isliked={false}/>
         <ProductDescription>

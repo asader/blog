@@ -7,8 +7,8 @@ const catalog = getCatalogPage('allContentfulPizza');
 export default catalog;
 
 export const query = graphql`
-	query ContentfulPizzaCatalogByType($typeSlug: String!) {
-		allContentfulPizza(filter: {types: {elemMatch: {slug: {eq: $typeSlug}}}}) {
+	query ContentfulPizzaCatalogByCategoryAndType($typeSlug: String!, $categorySlug: String!) {
+		allContentfulPizza(filter: {types: {elemMatch: {slug: {eq: $typeSlug}}}, categories: {elemMatch: {slug: {eq: $categorySlug}}}}) {
 			nodes {
 				title
 				id

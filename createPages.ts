@@ -1,6 +1,7 @@
 import * as config from './src/utils/siteConfig';
 import * as path from 'path';
 import { GatsbyNode } from 'gatsby';
+import { any } from 'prop-types';
 
 export const capitalize = (str) => {
 	return str.charAt(0).toUpperCase() + str.slice(1);
@@ -23,7 +24,7 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions 
 	const { createPage } = actions;
 
 	const loadPosts = new Promise((resolve) => {
-		graphql(`
+		graphql<AllContentfulPost>(`
       {
         allContentfulPost(
           sort: { fields: [publishDate], order: DESC }
@@ -45,7 +46,6 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions 
 				posts.slice(postsPerFirstPage).length / postsPerPage
 			);
 
-			// Create main home page
 			createPage({
 				path: `/blog`,
 				component: path.resolve(`./src/templates/blog.js`),
@@ -142,7 +142,7 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions 
 			categories.forEach((category) => {
 				createPage({
 					path: `/${productType}/${category.slug}`,
-					component: path.resolve(`./src/templates/${productType}/catalog.tsx`),
+					component: path.resolve(`./src/templates/${productType}/catalogByCategory.tsx`),
 					context: {
 						categorySlug: category.slug,
 						categories,
@@ -154,7 +154,7 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions 
 			types.forEach((type) => {
 				createPage({
 					path: `/${productType}/${type.slug}`,
-					component: path.resolve(`./src/templates/${productType}/catalog.tsx`),
+					component: path.resolve(`./src/templates/${productType}/catalogByType.tsx`),
 					context: {
 						typeSlug: type.slug,
 						categories,
@@ -165,7 +165,7 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions 
 				categories.forEach((category) => {
 					createPage({
 						path: `/${productType}/${type.slug}/${category.slug}`,
-						component: path.resolve(`./src/templates/${productType}/catalog.tsx`),
+						component: path.resolve(`./src/templates/${productType}/catalogByCategoryAndType.tsx`),
 						context: {
 							categorySlug: category.slug,
 							typeSlug: type.slug,
@@ -174,51 +174,6 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions 
 							productType: productType,
 						},
 					});
-				});
-			});
-		});
-	};
-
-	const loadProductSubCategory = (productType) => {
-		const endPoint = `allContentful${capitalize(productType)}Category`;
-		return graphql(`{
-        ${endPoint} {
-          nodes {
-            slug
-          }
-        }
-      }`).then(result => {
-			const categories = result.data[endPoint].nodes;
-			Array.from(new Set(categories)).forEach(({slug }) => {
-				createPage({
-					path: `/${productType}/${slug}`,
-					component: path.resolve(`./src/templates/${productType}/subCategory.tsx`),
-					context: {
-						slug,
-					},
-				});
-			});
-		});
-	};
-
-	const loadPizza = (productType) => {
-		const endPoint = `allContentful${capitalize(productType)}`;
-		return graphql(`{
-        ${endPoint} {
-          nodes {
-            slug
-          }
-        }
-      }`).then(result => {
-			const categories = result.data[endPoint].nodes;
-			categories.forEach(({slug }) => {
-				// Create product category page
-				createPage({
-					path: `/${productType}`,
-					component: path.resolve(`./src/templates/${productType}Category.js`),
-					context: {
-						slug,
-					},
 				});
 			});
 		});
@@ -240,7 +195,7 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions 
 	});
 
 	const loadTags = new Promise((resolve) => {
-		graphql(`
+		graphql<any>(`
       {
         allContentfulTag {
           edges {
@@ -281,7 +236,7 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions 
 	});
 
 	const loadPages = new Promise((resolve, reject) => {
-		graphql(`
+		graphql<any>(`
       {
         allContentfulPage {
           edges {

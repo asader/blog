@@ -1,4 +1,7 @@
 import {WcProductAttribute} from '../Shop/ProductListCards';
+import { Products } from '../Products';
+import React from 'react';
+import { CatalogPageContext } from '../../templates/pizza/catalog';
 
 export enum RootCategory {
 	LaserMachines = 'Laser machines',
@@ -17,3 +20,15 @@ export const attributesByCategoryName = {
 export function getShortListOfAttributes(attributes: WcProductAttribute[], category: RootCategory): WcProductAttribute[] {
 	return attributes.filter((attribute) => attributesByCategoryName[category].includes(attribute.name));
 }
+
+export const getCatalogPage = (productsQuery: string) => {
+	return ({ data, pageContext }) => {
+		const context: CatalogPageContext = {
+			products: data[productsQuery].nodes,
+			...pageContext,
+		};
+		return (
+			<Products pageContext={context}/>
+		);
+	};
+};

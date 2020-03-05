@@ -1,5 +1,5 @@
-import React from 'react'
-import { graphql } from 'gatsby'
+import React from 'react';
+import { graphql } from 'gatsby';
 import { getCatalogPage } from '../../components/utils/utils';
 
 const catalog = getCatalogPage('allContentfulPizza');
@@ -7,8 +7,8 @@ const catalog = getCatalogPage('allContentfulPizza');
 export default catalog;
 
 export const query = graphql`
-	query ContentfulPizzaCatalogByType($typeSlug: String!) {
-		allContentfulPizza(filter: {types: {elemMatch: {slug: {eq: $typeSlug}}}}) {
+	query ContentfulPizzaCatalogByCategory($categorySlug: String!) {
+		allContentfulPizza(filter: {categories: {elemMatch: {slug: {eq: $categorySlug}}}}) {
 			nodes {
 				title
 				id

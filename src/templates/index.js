@@ -58,7 +58,12 @@ export const query = graphql`
           image {
             title
             fluid(maxWidth: 1800) {
-              ...GatsbyContentfulFluid_withWebp_noBase64
+              aspectRatio
+              src
+              srcSet
+              srcWebp
+              srcSetWebp
+              sizes
             }
           }
           body {
@@ -83,7 +88,12 @@ export const query = graphql`
           image {
             title
             fluid(maxWidth: 1800) {
-              ...GatsbyContentfulFluid_withWebp_noBase64
+              aspectRatio
+              src
+              srcSet
+              srcWebp
+              srcSetWebp
+              sizes
             }
           }
           body {

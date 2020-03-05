@@ -1,5 +1,5 @@
 import { Col, Row } from 'antd';
-import { navigate } from 'gatsby';
+import { graphql, navigate } from 'gatsby';
 import React, { useState } from 'react';
 
 import { Layout } from '../Layout';
@@ -85,3 +85,32 @@ export const Products: React.FunctionComponent<StoreProps> = ({pageContext}) => 
 		</Layout>
 	);
 };
+
+export const catalogQueryFragment = graphql`
+	fragment CatalogQuery on ContentfulPizza {
+		title
+		id
+		slug
+		weight
+		regularPrice
+		salePrice
+		image {
+			title
+			fluid(maxWidth: 1800) {
+				aspectRatio
+				src
+				srcSet
+				srcWebp
+				srcSetWebp
+				sizes
+			}
+		}
+		body {
+			childMarkdownRemark {
+				timeToRead
+				html
+				excerpt(pruneLength: 80)
+			}
+		}
+	}
+`;
