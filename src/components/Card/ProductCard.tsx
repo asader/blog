@@ -28,7 +28,7 @@ export const ProductCard = (props) => {
         hoverable
         cover={image && image.fluid.src && <Img fluid={image.fluid} backgroundColor={'#eeeeee'}/>}
         bodyStyle={{ position: 'relative' }}>
-        <LikeButton isliked={false}/>
+        <LikeButton isLiked={false}/>
         <ProductDescription>
           <ProductTitle>{title}</ProductTitle>
           <Weight>{weight} g</Weight>
@@ -40,7 +40,6 @@ export const ProductCard = (props) => {
         />
         <CardFooter>
           <Price>{price}</Price>
-
         </CardFooter>
       </Card>
     </Link>

@@ -45,6 +45,7 @@ const Index = ({ data, pageContext }) => {
 export const query = graphql`
   query($skip: Int!, $limit: Int!) {
     allContentfulPost(
+      filter: {node_locale: {eq: "en-US"}}
       sort: { fields: [publishDate], order: DESC }
       limit: $limit
       skip: $skip
@@ -76,7 +77,7 @@ export const query = graphql`
         }
       }
     }
-    allContentfulPizza {
+    allContentfulPizza(filter: {node_locale: {eq: "en-US"}}) {
       edges {
         node {
           title

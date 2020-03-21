@@ -9,7 +9,7 @@ export enum SORT_DIRECTION {
 
 export enum SORT_ATTRIBUTE {
 	PRICE = 'Price',
-	NAME = 'Name',
+	TITLE = 'Title',
 	DEFAULT = 'Default',
 }
 
@@ -37,7 +37,7 @@ export const ProductSort: React.FunctionComponent<Prop> = ({onSort}) => {
 	};
 
 	return (
-		<div>
+		<div style={{marginBottom: 16}}>
 			<span style={{marginRight: '10px'}}>Sort by</span>
 			<Radio.Group
 				style={{marginRight: '15px'}}

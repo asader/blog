@@ -7,7 +7,7 @@ const catalog = getCatalogPage('allContentfulPizza');
 
 export const query = graphql`
 	query ContentfulPizzaCatalog {
-		allContentfulPizza {
+		allContentfulPizza(filter: {node_locale: {eq: "en-US"}}) {
 			nodes {
 				title
 				id

@@ -8,7 +8,12 @@ export default catalog;
 
 export const query = graphql`
 	query ContentfulPizzaCatalogByCategory($categorySlug: String!) {
-		allContentfulPizza(filter: {categories: {elemMatch: {slug: {eq: $categorySlug}}}}) {
+		allContentfulPizza(
+			filter: {
+				node_locale: {eq: "en-US"}, 
+				categories: {elemMatch: {slug: {eq: $categorySlug}}}
+			}
+		) {
 			nodes {
 				title
 				id

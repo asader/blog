@@ -11,16 +11,12 @@ interface Props {
 	entities: TitleWithSlug[];
 	selectedEntitySlug: string;
 	getSlug: (slug: string) => string;
-	onChange: (entity: TitleWithSlug) => void;
 }
-export const CheckableTagList: React.FunctionComponent<Props> = ({ entities, selectedEntitySlug, getSlug, onChange }) => {
+export const CheckableTagList: React.FunctionComponent<Props> = ({ entities, selectedEntitySlug, getSlug }) => {
 	const categories = entities.map((entity) => {
 		const { title, slug } = entity;
 		return (
-			<Link to={getSlug(slug)} onClick={(e) => {
-				e.preventDefault();
-				onChange(entity);
-			}} key={slug}>
+			<Link to={getSlug(slug)} key={slug}>
 				<CheckableTag
 					style={{
 						height: 32,

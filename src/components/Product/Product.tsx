@@ -48,7 +48,6 @@ export const Product = ({ data: { contentfulPizza } }) => {
 		slug,
 		image,
 		body,
-		tags,
 		ingredients,
 		regularPrice,
 		salePrice,
