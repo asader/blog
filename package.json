@@ -63,8 +63,8 @@
   "scripts": {
     "start": "gatsby clean & gatsby develop",
     "build": "gatsby clean & gatsby build",
-    "serve": "npm run build && gatsby serve",
-    "test": "npm run lint:css && npm run lint:js && npm run check-pretty",
+    "serve": "yarn build && gatsby serve",
+    "test": "yarn lint:css && yarn lint:js && yarn check-pretty",
     "setup": "node ./bin/setup.js",
     "lint:js": "eslint --ext .js,.jsx .",
     "lint:css": "stylelint 'src/**/*.js'",

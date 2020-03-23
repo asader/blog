@@ -1,7 +1,6 @@
 import * as config from './src/utils/siteConfig';
 import * as path from 'path';
 import { GatsbyNode } from 'gatsby';
-import { any } from 'prop-types';
 
 export const capitalize = (str) => {
 	return str.charAt(0).toUpperCase() + str.slice(1);
